@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Gégé</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0e0e0d;
+      --text: #e8e4dc;
+      --muted: #6a6660;
+      --accent: #c8b49a;
+      --border: #222220;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 2.5rem;
+      background: rgba(14,14,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 14rem 2.5rem 5rem;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ── COLLECTIONS GRID ── */
+    .collections-section {
+      padding: 2rem 2.5rem 6rem;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2px;
+    }
+
+    /* ── COLLECTION CARD ── */
+    .collection-card {
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+      background: var(--border);
+      cursor: pointer;
+    }
+
+    .collection-cover {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  filter 0.4s ease;
+      filter: brightness(0.85);
+    }
+
+    .collection-card:hover .collection-cover {
+      transform: scale(1.04);
+      filter: brightness(0.6);
+    }
+
+    .collection-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2.5rem 1.5rem 1.5rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.75));
+      transform: translateY(4px);
+      transition: transform 0.3s ease;
+    }
+
+    .collection-card:hover .collection-info {
+      transform: translateY(0);
+    }
+
+    .collection-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.2;
+      display: block;
+    }
+
+    .collection-count {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      display: block;
+      margin-top: 0.4rem;
+      transition: color 0.3s;
+    }
+
+    .collection-card:hover .collection-count {
+      color: var(--accent);
+    }
+
+    .collection-arrow {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translate(4px, -4px);
+      transition: opacity 0.3s, transform 0.3s;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .collection-card:hover .collection-arrow {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer span {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Gégé</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Collections</a></li>
+      <li><a href="#">À propos</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-eyebrow">Portfolio photographique</p>
+    <h1 class="hero-title">La lumière<br>comme <em>langage</em></h1>
+  </section>
+
+  <section class="collections-section">
+    <p class="section-label">Collections — 3 séries</p>
+
+    <div class="collections-grid">
+
+      <!-- ══ COLLECTION 1 ══════════════════════════════════════════
+           Pour ajouter une collection :
+           1. Duplique ce bloc
+           2. Change href vers le fichier de la galerie (ex: collection-paris.html)
+           3. Change src de l'image de couverture (ex: photos/paris/cover.jpg)
+           4. Change le titre et le nombre de photos
+           ═══════════════════════════════════════════════════════ -->
+
+      <a class="collection-card" href="collection-cambodge.html">
+        <img class="collection-cover"
+             src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80"
+             alt="Cambodge" />
+        <div class="collection-info">
+          <span class="collection-title">Cambodge</span>
+          <span class="collection-count">12 photos</span>
+        </div>
+        <span class="collection-arrow">↗</span>
+      </a>
+
+      <a class="collection-card" href="collection-portrait.html">
+        <img class="collection-cover"
+             src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=900&q=80"
+             alt="Portraits" />
+        <div class="collection-info">
+          <span class="collection-title">Portraits</span>
+          <span class="collection-count">8 photos</span>
+        </div>
+        <span class="collection-arrow">↗</span>
+      </a>
+
+      <a class="collection-card" href="collection-urbain.html">
+        <img class="collection-cover"
+             src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=900&q=80"
+             alt="Urbain" />
+        <div class="collection-info">
+          <span class="collection-title">Urbain</span>
+          <span class="collection-count">15 photos</span>
+        </div>
+        <span class="collection-arrow">↗</span>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2025 — Gégé</span>
+    <span>Photographie</span>
+  </footer>
+
+</body>
+</html>
