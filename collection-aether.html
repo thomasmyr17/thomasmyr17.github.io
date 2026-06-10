@@ -93,9 +93,11 @@
 
     /* ── MASONRY GRID ── */
     .gallery {
-      columns: 1;
+      columns: 3;
       column-gap: var(--gap);
-      padding: var(--gap) 4 6rem;
+      padding: var(--gap) 2.5rem 6rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     @media (max-width: 900px) { .gallery { columns: 2; } }
